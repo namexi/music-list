@@ -8,9 +8,11 @@ const http = require('http')
 const fs = require('fs')
 const path = require('path')
 const querystring = require('querystring')
+const _ = require("underscore")
 const contType = require('./public/js/contentType')
 http.createServer((request,response) => {
     let pathUrl = request.url
+    let method = request.method
     // 配置静态路由
     if (pathUrl.includes('.') && !pathUrl.includes('favicon.ico')) {
         fs.readFile(path.join(__dirname,pathUrl),(err,data) => {
@@ -33,15 +35,31 @@ http.createServer((request,response) => {
         })
     }
     // 配置添加功能
-    else if (pathUrl === '/add') {
+    else if (pathUrl === '/add' && method === "GET") {
         fs.readFile(path.join(__dirname,'add.html'),'utf8',(err,data) => {
             if (err) return response.end('您要的页面已走失')
+                let temp = _.template(data)
+                data = temp({
+                    prompt:'none',
+                    imassge:''
+                })
             response.writeHead(200,{
                 'Content-type':'text/html'
             })
             response.end(data) 
         })
-    }else if (pathUrl=== '/edit') {
+    }
+    // 接收数据
+    else if (pathUrl === '/add' && method === "POST") {
+        let data = ''
+        request.on('data',chunk => {
+            data+=chunk
+        })
+        request.on('end',() => {
+           data = querystring.parse(data)
+        })
+    }
+    else if (pathUrl=== '/edit') {
 
     }else if (pathUrl=== '/remove') {
 

@@ -32,10 +32,31 @@ npm init -y
 
 + 配置静态路由
 
-  <img src="public/img/1.jpg"> 
+  [🚩 源代码: step-03](https://github.com/namexi/music-list/commit/85be7c29e081eb9f8a106797e44dc5a1228ca109)
 
-+ 解决浏览器 .ico  bug
++ 主页路由
+
+  ```
+  url:127.0.0.1:3000
+  ```
+
+  ​
+
+  <img src="public/img/1.jpg">
+
+   
+
+  - 解决浏览器 .ico  bug
 
 ``` Javascript
   ​!pathUrl.includes('favicon.ico')
+```
+
+
++ 添加路由
+
   ```
+  url:127.0.0.1:3000/add
+  ```
+
+  <img src="public/img/2.png">
