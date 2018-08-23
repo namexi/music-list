@@ -38,15 +38,11 @@ http.createServer((request,response) => {
     else if (pathUrl === '/add' && method === "GET") {
         fs.readFile(path.join(__dirname,'add.html'),'utf8',(err,data) => {
             if (err) return response.end('您要的页面已走失')
-                let temp = _.template(data)
-                data = temp({
-                    prompt:'none',
-                    imassge:''
-                })
+               let tempData = checkout(data,'none','')
             response.writeHead(200,{
                 'Content-type':'text/html'
             })
-            response.end(data) 
+            response.end(tempData) 
         })
     }
     // 接收数据
@@ -68,3 +64,12 @@ http.createServer((request,response) => {
 .listen(3000,'127.0.0.1',() => {
     console.log(' Server is running at port 3000')
 })
+
+function checkout(data,display,imassge) {
+    let temp = _.template(data)
+    data = temp({
+        prompt:display,
+        imassge:imassge
+    })
+    return data
+}
