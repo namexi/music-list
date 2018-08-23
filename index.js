@@ -31,8 +31,16 @@ http.createServer((request,response) => {
             })
             response.end(data)
         })
-    }else if (pathUrl === '/add') {
-
+    }
+    // 配置添加功能
+    else if (pathUrl === '/add') {
+        fs.readFile(path.join(__dirname,'add.html'),'utf8',(err,data) => {
+            if (err) return response.end('您要的页面已走失')
+            response.writeHead(200,{
+                'Content-type':'text/html'
+            })
+            response.end(data) 
+        })
     }else if (pathUrl=== '/edit') {
 
     }else if (pathUrl=== '/remove') {

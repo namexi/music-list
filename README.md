@@ -33,3 +33,9 @@ npm init -y
 + 配置静态路由
 
   <img src="public/img/1.jpg"> 
+
++ 解决浏览器 .ico  bug
+
+``` Javascript
+  ​!pathUrl.includes('favicon.ico')
+  ```
