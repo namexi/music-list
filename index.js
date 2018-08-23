@@ -8,9 +8,21 @@ const http = require('http')
 const fs = require('fs')
 const path = require('path')
 const querystring = require('querystring')
-
+const contType = require('./public/js/contentType')
 http.createServer((request,response) => {
     let pathUrl = request.url
+    console.log(path.extname(pathUrl))
+    // 配置静态路由
+    if (pathUrl.includes('.')) {
+        fs.readFile(path.join(__dirname,pathUrl),(err,data) => {
+            if (err) throw err
+            let contData = contType(path.extname(pathUrl))
+            response.writeHead(200,{
+                "Content-type":contData
+            })
+            response.end(data)
+        })
+    }
     // 配置主页
     if (pathUrl=== '/') {
         fs.readFile(path.join(__dirname,"index.html"),'utf8',(err,data) => {

@@ -3,9 +3,9 @@
  */
 "use strict"
 const fs = require('fs')
-
+const path = require("path")
 function getContType (extname) {
-let data = fs.readFileSync("../mime.txt",'utf8')
+let data = fs.readFileSync(`${path.dirname(__dirname)}/mime.txt`,'utf8')
 data = JSON.parse(data)
 let contType = data[extname]? data[extname]:'text/plain'
 return contType
