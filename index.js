@@ -11,9 +11,8 @@ const querystring = require('querystring')
 const contType = require('./public/js/contentType')
 http.createServer((request,response) => {
     let pathUrl = request.url
-    console.log(path.extname(pathUrl))
     // 配置静态路由
-    if (pathUrl.includes('.')) {
+    if (pathUrl.includes('.') && !pathUrl.includes('favicon.ico')) {
         fs.readFile(path.join(__dirname,pathUrl),(err,data) => {
             if (err) throw err
             let contData = contType(path.extname(pathUrl))
