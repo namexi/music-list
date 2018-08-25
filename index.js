@@ -38,7 +38,7 @@ http.createServer((request,response) => {
     else if (pathUrl === '/add' && method === "GET") {
         fs.readFile(path.join(__dirname,'add.html'),'utf8',(err,data) => {
             if (err) return response.end('您要的页面已走失')
-               let tempData = checkout(data,'none','')
+            let tempData = checkout(data,'none','')
             response.writeHead(200,{
                 'Content-type':'text/html'
             })
@@ -53,6 +53,10 @@ http.createServer((request,response) => {
         })
         request.on('end',() => {
            data = querystring.parse(data)
+           // 校验
+           if (!data) {
+            
+           }
         })
     }
     else if (pathUrl=== '/edit') {
